@@ -59,7 +59,7 @@ func newConn(endpoint string, auth Authorization) (*conn, error) {
 		endMgmt:     &url.URL{Scheme: "https", Host: u.Hostname(), Path: "/v1/rest/mgmt"},
 		endQuery:    &url.URL{Scheme: "https", Host: u.Hostname(), Path: "/v2/rest/query"},
 		streamQuery: &url.URL{Scheme: "https", Host: u.Hostname(), Path: "/v1/rest/ingest/"},
-		client:      &http.Client{},
+		client:      &http.Client{Transport: &http.Transport{ Proxy: http.ProxyFromEnvironment}},
 	}
 
 	return c, nil

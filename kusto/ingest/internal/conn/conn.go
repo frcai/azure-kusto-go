@@ -80,7 +80,7 @@ func newWithoutValidation(endpoint string, auth kusto.Authorization) (*Conn, err
 		baseURL:     &url.URL{Scheme: u.Scheme, Host: u.Host, Path: "/v1/rest/ingest/"},
 		reqHeaders:  headers,
 		headersPool: make(chan http.Header, 100),
-		client:      &http.Client{},
+		client:      &http.Client{Transport: &http.Transport{Proxy: http.ProxyFromEnvironment}},
 	}
 
 	// Fills a pool of headers to alleviate header copying timing at request time.
